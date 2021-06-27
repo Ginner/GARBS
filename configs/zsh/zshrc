@@ -1,0 +1,51 @@
+# Ginner's config for zsh
+
+# Enable colors and change the prompt
+autoload -U colors && colors    # Load colors
+setopt autocd extendedglob nomatch notify interactive_comments
+stty stop undef     # Disable ctrl-s to freeze terminal
+setopt PROMPT_SUBST     # Allow parameter expansion in the prompt
+
+# PS1="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
+local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
+PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
+PS1="$PROMPT"
+
+RPROMPT='%*'
+
+# History in cache directory:
+HISTFILE=$XDG_CACHE_HOME/zsh/history
+HISTSIZE=1000000
+SAVEHIST=1000000
+
+# Use vim keys in zsh
+bindkey -v
+export KEYTIMEOUT=1
+
+# Use vim keys in tab completion menu
+bindkey -M menuselect 'h' vi-backward-char
+
+zstyle :compinstall filename "$XDG_CONFIG_HOME/zsh/.zshrc"
+
+autoload -Uz compinit
+compinit
+
+# Pretty ls
+alias ls='ls -shN --color=auto --group-directories-first'
+
+# Aliases
+alias vim='nvim'
+alias cp='cp -riv'
+alias mv='mv -iv'
+alias rm='rm -I'
+alias mkdir='mkdir -vp'
+
+# Bad habits
+alias :q='exit'
+
+# Make cal more relevant
+alias cal='cal -wm'
+
+# Keep the home folder somewhat clean
+alias newsboat='newsboat --config-file=$XDG_CONFIG_HOME/newsboat/config --url-file=$XDG_CONFIG_HOME/newsboat/urls'
+alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'

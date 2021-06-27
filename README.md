@@ -1,4 +1,5 @@
-# Luke's Auto-Rice Bootstrapping Scripts (LARBS)
+# Ginner's Auto-Rice Bootstrapping Scripts (LARBS)
+Copied from Luke Smith's LARBS and modified.
 
 ## Installation:
 
