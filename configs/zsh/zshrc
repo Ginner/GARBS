@@ -6,12 +6,17 @@ setopt autocd extendedglob nomatch notify interactive_comments
 stty stop undef     # Disable ctrl-s to freeze terminal
 setopt PROMPT_SUBST     # Allow parameter expansion in the prompt
 
+source $XDG_CONFIG_HOME/zsh/myprompt.sh
+# Left prompt
 # PS1="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
-PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
-PS1="$PROMPT"
+# PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
+# PS1="$PROMPT"
+PS1='%{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info) ${ret_status}'
 
-RPROMPT='%*'
+# Right prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1     # Disable the built-in show of venv
+RPROMPT='$(parse_git_dirty) %{$fg[cyan]%}$(right_prompt)'
 
 # History in cache directory:
 HISTFILE=$XDG_CACHE_HOME/zsh/history
